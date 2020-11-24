@@ -33,6 +33,14 @@ public class TodoList implements Widget {
         return length;
     }
 
+    public List<TodoItem> getTodoList() {
+        return todoList;
+    }
+
+    public void setTodoList(List<TodoItem> todoList) {
+        this.todoList = todoList;
+    }
+
     @Override
     public void render() {
         Container container = new Container();

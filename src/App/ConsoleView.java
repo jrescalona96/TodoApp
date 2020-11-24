@@ -6,10 +6,11 @@ import App.ConsoleUIComponents.common.*;
 import java.util.*;
 
 public class ConsoleView implements View {
-    private Container viewport;
+    private final Container viewport;
+    private final MainMenu mainMenu;
+    private List<TodoItem> todos;
     private Input activeInput;
     private TodoList todoList;
-    private MainMenu mainMenu;
 
     final private Widget title = new HeaderText("TODO CONSOLE APP : VERSION 1.0.0");;
 
@@ -18,6 +19,7 @@ public class ConsoleView implements View {
         mainMenu = new MainMenu();
         viewport = new Container();
         viewport.addWidget(title);
+        this.todos = todos;
         update(todos);
         _renderMainMenu();
     }
@@ -39,6 +41,7 @@ public class ConsoleView implements View {
     }
 
     public HashMap<String, String> onEditTodo() {
+
         _clearScreen();
         HashMap<String, String> res = new HashMap<>();
 
@@ -46,7 +49,7 @@ public class ConsoleView implements View {
         _renderTodoList();
 
         // get task id
-        _renderSingleInputForm("✏️ EDIT A TASK","🆔 Select task number: ");
+        _renderSingleInputForm("✏️ EDIT A TASK", "🆔 Select task number: ");
         res.put("id", activeInput.getValue());
 
         // get new task description
@@ -54,16 +57,31 @@ public class ConsoleView implements View {
         activeInput.render();
         res.put("description", activeInput.getValue());
         _clearScreen();
+
         return res;
     }
 
     public int onDeleteTodo() {
         _clearScreen();
-        // build and render add form
-        _renderTodoList();
-        _renderSingleInputForm("❌ DELETE A TASK","🆔 Select task number: ");
+        if(todos.size() > 0) {      // build and render add form
+            _renderTodoList();
+            _renderSingleInputForm("❌ DELETE A TASK", "🆔 Select task number: ");
+
+        } else {
+            _renderErrorMessage("\n😅 No tasks to delete! (Press Enter To Continue)");
+        }
         _clearScreen();
         return Integer.parseInt(activeInput.getValue());
+    }
+
+    private void _renderErrorMessage(String message) {
+        _clearScreen();
+        _resetViewport();
+        _renderTodoList();
+        viewport.addWidget(new SingleLineInput(message));
+        render();
+        _clearScreen();
+        _renderMainMenu();
     }
 
     public int onToggleCompleteTodo() {
