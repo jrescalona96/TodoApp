@@ -1,37 +1,9 @@
-## Welcome to GitHub Pages
+## Hi there! 👋
 
-You can use the [editor on GitHub](https://github.com/jrescalona96/TodoApp/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### This project is a Todo App that I built to enforce my understanding of the MVC pattern, as well as the Singleton and Observer patterns.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+I am still working on this project but as of the moment, I have a simple console application that you can play with if you are interested. Email me if your are interested.
 
-### Markdown
+You can find my contact here 👉🏽 [johnescalona.com](https://johnescalona.com/), along with some other projects I worked on.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/jrescalona96/TodoApp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# 🖖🏽
