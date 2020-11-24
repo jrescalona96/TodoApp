@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TodoApp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/TodoApp_jar/TodoApp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
