@@ -12,7 +12,7 @@ public class MainMenu implements Widget {
 
     public MainMenu() {
         String prompt = "What would you like to do❓";
-        List<String> options = Arrays.asList("[1] 📌 Add Task", "[2] ✏️ Edit Task", "[3] ❌ Delete Task", "[4] ✅ Complete Task", "[Q] ⛔️ Quit");
+        List<String> options = Arrays.asList("[A] 📌 Add Task", "[E] ✏️ Edit Task", "[D] ❌ Delete Task", "[C] ✅ Complete Task", "[Q] ⛔️ Quit");
         this.form = new MenuInput(options, prompt);
     }
 

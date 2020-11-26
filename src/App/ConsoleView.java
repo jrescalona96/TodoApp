@@ -12,16 +12,14 @@ public class ConsoleView implements View {
     private Input activeInput;
     private TodoList todoList;
 
-    final private Widget title = new HeaderText("TODO CONSOLE APP : VERSION 1.0.0");;
 
     // CONSTRUCTOR
     public ConsoleView(List<TodoItem> todos) {
         mainMenu = new MainMenu();
         viewport = new Container();
-        viewport.addWidget(title);
         this.todos = todos;
-        update(todos);
-        _renderMainMenu();
+        _renderAppTitle();
+        _renderTodoList();
     }
 
     public Input getActiveInput() {
@@ -32,20 +30,19 @@ public class ConsoleView implements View {
         this.activeInput = activeInput;
     }
 
+    @Override
     public String onAddTodo() {
-        _clearScreen();
-        // build and render add form
+        _renderAppTitle();
+        _renderTodoList();
         _renderSingleInputForm("📌 ADD NEW TASK", "📝 Enter description: ");
-        _clearScreen();
         return activeInput.getValue();
     }
 
+    @Override
     public HashMap<String, String> onEditTodo() {
-
-        _clearScreen();
+        _renderAppTitle();
         HashMap<String, String> res = new HashMap<>();
 
-        // render current todos
         _renderTodoList();
 
         // get task id
@@ -53,44 +50,66 @@ public class ConsoleView implements View {
         res.put("id", activeInput.getValue());
 
         // get new task description
+        _resetViewport();
         activeInput = new SingleLineInput("📝 Enter description: ");
         activeInput.render();
         res.put("description", activeInput.getValue());
+
         _clearScreen();
 
         return res;
     }
 
+    @Override
     public int onDeleteTodo() {
-        _clearScreen();
-        if(todos.size() > 0) {      // build and render add form
-            _renderTodoList();
-            _renderSingleInputForm("❌ DELETE A TASK", "🆔 Select task number: ");
-
-        } else {
-            _renderErrorMessage("\n😅 No tasks to delete! (Press Enter To Continue)");
-        }
-        _clearScreen();
-        return Integer.parseInt(activeInput.getValue());
-    }
-
-    private void _renderErrorMessage(String message) {
-        _clearScreen();
-        _resetViewport();
+        _renderAppTitle();
         _renderTodoList();
-        viewport.addWidget(new SingleLineInput(message));
-        render();
-        _clearScreen();
-        _renderMainMenu();
+        int res = 0;
+        _renderSingleInputForm("❌ DELETE A TASK", "🆔 Select task number: ");
+        res = Integer.parseInt(activeInput.getValue());
+        return res;
     }
 
+    @Override
     public int onToggleCompleteTodo() {
-        _clearScreen();
+        _renderAppTitle();
         _renderTodoList();
         _renderSingleInputForm("✅ TOGGLE A TASK","🆔 Select task number: ");
         _clearScreen();
         return Integer.parseInt(activeInput.getValue());
     }
+
+    public void renderErrorMessage(String message) {
+        _renderAppTitle();
+        viewport.addWidget(new SingleLineInput(message));
+        render();
+        _resetViewport();
+        _clearScreen();
+    }
+
+    /**
+     * Renders console Main Menu
+     * @return Uppercase user input
+     */
+    public String getMainMenuInput() {
+        _renderMainMenu();
+        return activeInput.getValue().toUpperCase();
+    }
+
+    public void onExit() {
+        _clearScreen();
+        System.out.println("\n 👋 Bye... \n\n");
+    }
+
+    private void _renderAppTitle() {
+        _resetViewport();
+        _clearScreen();
+        Widget title = new HeaderText("💯 TODO CONSOLE APP : VERSION 1.0.0");;
+        viewport.addWidget(title);
+        render();
+        _resetViewport();
+    }
+
 
     private void _renderMainMenu() {
         _resetViewport();
@@ -102,6 +121,7 @@ public class ConsoleView implements View {
 
     private void _renderTodoList() {
         _resetViewport();
+        this.todoList = new TodoList(todos);
         viewport.addWidget(todoList);
         render();
         _resetViewport();
@@ -112,6 +132,7 @@ public class ConsoleView implements View {
         activeInput = new SingleLineInput(header, prompt);
         viewport.addWidget(activeInput);
         render();
+        _resetViewport();
     }
 
     private void _resetViewport() {
@@ -124,13 +145,10 @@ public class ConsoleView implements View {
     }
 
     @Override
-    public void run() {
-        _renderMainMenu();
-    }
-
-    @Override
     public void update(List<TodoItem> todos) {
-        todoList = new TodoList(todos);
+        this.todos = todos;
+        _clearScreen();
+        _renderAppTitle();
         _renderTodoList();
     }
 

@@ -47,8 +47,8 @@ public class TodoList implements Widget {
         int borderLength =  _getBorderLength();
 
         Border border = new Border("-", borderLength);
-        container.addWidget(new Break());
         container.addWidget(border);
+
         container.addWidget(new Break());
         container.addWidget(new Text(header));
 
